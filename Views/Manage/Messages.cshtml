@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebApplication1.Models.MessageViewModel>
+@{
+    ViewBag.Title = "Messages";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="nav navbar-nav navbar-left">
+    <li> @Html.ActionLink("Полученные","Messages",new { parameter = 0 })</li>
+    <li> @Html.ActionLink("Отправленные", "Messages", new { parameter = 1 })</li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("Написать сообщение", "addMessage")</li>
+    </ul>
+<br /><br /><br />
+    @if (ViewBag.parameter == 0)
+    {
+        <h4>Полученные сообщения</h4>
+        @Html.ActionLink("Очистить","ClearReceived")
+    }
+    else
+    {
+        <h4>Отправленные сообщения</h4>
+    }
+    <table class="table">
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-info">
+                    @Html.Raw(item.Пользователь + " " + item.Дата_отправки)
+                </td>
+                <td>
+                    @Html.Raw(item.Содержание)
+                </td>
+                
+            </tr>
+        }
+
+    </table>
+
+
+

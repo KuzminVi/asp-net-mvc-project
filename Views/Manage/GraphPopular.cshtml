@@ -1,0 +1,16 @@
+﻿@model Dictionary<string,int>
+@{
+    ViewBag.Title = "GraphPopular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>График популярности</h2>
+@{ 
+    var myChart = new Chart(2000, 2000);
+    myChart.AddSeries(name: "Популярность",
+        xValue: Model.Keys.ToList(),
+        yValues: Model.Values.ToList()
+        );
+    myChart.Write();
+}
+

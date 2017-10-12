@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WebApplication1.Models.ManageViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Roles.IsUserInRole(User.Identity.Name,"Сотрудник"))
+{
+    @Html.ActionLink("Составить граф популярности","GraphPopular")
+}
+<h2>Мои книги</h2>
+@Html.ActionLink("Экспорт списка","Export")
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Книги.Название)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Книги.Авторы.ФИО_автора)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Статус)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Рейтинг)
+        </th>
+    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Книги.Название,"Details","Книги", new { id = item.Код_книги },null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Книги.Авторы.ФИО_автора,"Details","Авторы",new { id = item.Книги.Автор },null)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Статус)
+                </td>
+                <td>
+                        @Html.DisplayFor(model => item.Рейтинг)
+                </td>
+                <td>
+                  @Html.ActionLink("Изменить","EditBook",new { id = item.Код_книги})
+                </td>
+                    </tr>
+        }
+    
+    </table>

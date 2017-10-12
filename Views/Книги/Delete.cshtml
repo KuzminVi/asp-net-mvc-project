@@ -1,0 +1,50 @@
+﻿@model WebApplication1.Models.Книги
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Удалить</title>
+</head>
+<body>
+    <h3>Вы уверены?</h3>
+    <div>
+        <h4>Книги</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Название)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Название)
+            </dd>
+    
+
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Авторы.ФИО_автора)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Авторы.ФИО_автора)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Удалить" class="btn btn-default" />
+            </div>
+        }
+    </div>
+</body>
+</html>

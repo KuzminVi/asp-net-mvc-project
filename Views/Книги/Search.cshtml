@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebApplication1.Models.Книги>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body>
+<h2>Результаты поиска</h2>
+@if (Model.Count() != 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Название)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Авторы.ФИО_автора)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Краткое_описание)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Средний_рейтинг)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ссылка_на_скачивание)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(linkText: item.Название, actionName: "Details", controllerName: "Книги", routeValues: new { id = item.Код }, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.ActionLink(linkText: item.Авторы.ФИО_автора, actionName: "Details", controllerName: "Авторы", routeValues: new { id = item.Авторы.Код }, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Краткое_описание)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Средний_рейтинг)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ссылка_на_скачивание)
+                </td>
+                <td>
+                    @Html.ActionLink("Подробно", "Details", new { id = item.Код })
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Добавить", "AddBook", "Manage", routeValues: new { id = item.Код }, htmlAttributes: null)
+                    }
+                    @if (User.Identity.IsAuthenticated && Roles.IsUserInRole(User.Identity.Name, "Сотрудник"))
+                    {
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Изменить", "Edit", new { id = item.Код });
+                        @Html.Raw(" | ");
+                        @Html.ActionLink("Удалить", "Delete", new { id = item.Код });
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+else{ <p> Поиск не дал результатов </p>}
+</body>
+

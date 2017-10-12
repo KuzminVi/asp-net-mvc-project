@@ -1,0 +1,43 @@
+﻿@model WebApplication1.Models.Авторы
+
+@{
+    ViewBag.Title = "Details";
+
+}
+
+<head>
+    <link href=@Url.Content("~/Content/Site.css") rel="stylesheet" type="text/css" />
+    <link href=@Url.Content("~/Content/bootstrap.css") rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <div>
+        <h4>Автор</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ФИО_автора)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ФИО_автора)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Краткая_биография)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Краткая_биография)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Сотрудник"))
+        {
+            @Html.ActionLink("Изменить", "Edit", new { id = Model.Код })
+        }
+    </p>
+
+</body>

@@ -1,0 +1,44 @@
+﻿@model WebApplication1.Models.ManageViewModel
+
+@{
+    ViewBag.Title = "EditBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Редактирование книги</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Код_книги)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Статус, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Статус,new SelectList(new List<string>(){ "Заинтересовала", "Прочитана", "Брошена" }) , new { htmlAttributes = new { @class = "form-control-static" } })
+                @Html.ValidationMessageFor(model => model.Статус, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Рейтинг, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Рейтинг, new SelectList(new List<string>(){"-","1","2","3","4","5"}), new { htmlAttributes = new { @class = "form-control-static" } })
+                @Html.ValidationMessageFor(model => model.Рейтинг, "", new { @class = "text-danger" })
+</div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+    @Html.ActionLink("Вернуться", "Index")
+    @Html.Raw(" | ")
+    @Html.ActionLink("Удалить", "DeleteBook", new { id = Model.Код_книги })

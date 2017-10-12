@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html/>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href=@Url.Content("~/Content/Site.css") rel="stylesheet" type="text/css" />
+    <link href=@Url.Content("~/Content/bootstrap.css") rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="col-md-10">
+        @Html.ActionLink("Электронная библиотека","Index","Книги",null,htmlAttributes: new{@class = "h1 navbar-left"})
+        <br />
+        @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
+        <hr />
+        @using (Html.BeginForm("Search", "Книги", FormMethod.Post))
+        {
+            <p> Поиск книг</p>
+            
+                @Html.TextBox("searchname")
+            <div class="btn-toolbar">
+                <p><input type="submit" value="Поиск" class="btn btn-default" /></p>
+                @Html.ActionLink("Расширенный поиск", "AdvancedSearch", null, htmlAttributes: new { @class = "btn btn-link" })
+            </div>
+        }
+        <hr />
+        @RenderBody()
+        <hr />
+    </div>
+</body>
+</html>

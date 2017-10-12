@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "AdvancedSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Параметры поиска</h2>
+@using (Html.BeginForm("Search", "Книги"))
+{
+    <div class="form-horizontal">
+        <div>
+            <p>Название</p>
+            @Html.TextBox("searchname")
+        </div>
+        <div>
+            <p>Автор</p>
+            @Html.TextBox("authorname")
+        </div>
+        <div>
+            <p>Жанр</p>
+            @Html.TextBox("genre")
+        </div>
+        <div>
+            <p>Серия</p>
+            @Html.TextBox("series")
+        </div>
+        <div>
+            <br />
+            <input type="submit" value="Поиск" />
+        </div>
+    </div>
+}
+

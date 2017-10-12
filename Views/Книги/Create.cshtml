@@ -1,0 +1,98 @@
+﻿@model WebApplication1.Models.КнигиCreateViewModel
+
+    @{
+        ViewBag.Title = "Create";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <hr />
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>Книги</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })      
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Создать" class="btn btn-default" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Название, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Название, new { htmlAttributes = new { autocomplete = "off", @class = "form-control-static" } })
+                    @Html.ValidationMessageFor(model => model.Название, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.сущАвтор, "Существующий автор", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("сущАвтор", null, htmlAttributes: new { @class = "form-control-static" })
+                    @Html.ValidationMessageFor(model => model.сущАвтор, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+            @Html.LabelFor(model => model.новАвтор, "Новый автор", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.новАвтор, new {htmlAttributes = new { autocomplete = "off", @class = "form-control-static" }})
+            @Html.ValidationMessageFor(model => model.новАвтор, "", new { @class = "text-danger" })
+        </div>
+        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Серия, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Серия, new { htmlAttributes = new { autocomplete = "off",@class = "form-control-static" } })
+                    @Html.ValidationMessageFor(model => model.Серия, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Жанр, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Жанр, new { htmlAttributes = new { autocomplete = "off",@class = "form-control-static" } })
+                    @Html.ValidationMessageFor(model => model.Жанр, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Год_выпуска, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Год_выпуска, new { htmlAttributes = new { autocomplete = "off", @class = "form-control-static" } })
+                    @Html.ValidationMessageFor(model => model.Год_выпуска, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Краткое_описание, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Краткое_описание, new { htmlAttributes = new { autocomplete = "off",@class = "form-control-static" } })
+                    @Html.ValidationMessageFor(model => model.Краткое_описание, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Ссылка_на_скачивание, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Ссылка_на_скачивание, new { htmlAttributes = new { autocomplete = "off",@class = "form-control-static" } })
+                    @Html.ValidationMessageFor(model => model.Ссылка_на_скачивание, "", new { @class = "text-danger" })
+                </div>
+            </div>
+         </div>
+    }
+</body>
+</html>

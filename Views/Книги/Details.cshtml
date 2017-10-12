@@ -1,0 +1,148 @@
+﻿@model WebApplication1.Models.Книги
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Подробно</title>
+</head>
+<body>
+    <div>
+        <h4>Книга</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Название)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Название)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Авторы.ФИО_автора)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Авторы.ФИО_автора)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Серия)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Серия)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Жанр)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Жанр)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Год_выпуска)
+            </dt>
+    
+            <dd>
+                @if (Model.Год_выпуска == null)
+                {
+                    @Html.Raw("-")
+                }
+                else
+                {
+                @Html.DisplayFor(model => model.Год_выпуска)
+                }
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Краткое_описание)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Краткое_описание)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Ссылка_на_скачивание)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Ссылка_на_скачивание)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Средний_рейтинг)
+            </dt>
+    
+            <dd>
+@if (Model.Средний_рейтинг == null)
+{
+    @Html.Raw("-")
+}
+else
+{
+                @Html.DisplayFor(model => model.Средний_рейтинг)
+}
+                       </dd>
+    
+        </dl>
+    </div>
+    <hr />
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="h4">Отзыв</div>
+        <br />
+        using (Html.BeginForm("ManageReviews","Книги",FormMethod.Post))
+        {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("Создатель", User.Identity.Name)
+                @Html.Hidden("Дата_создания", DateTime.UtcNow.Date)
+                @Html.Hidden("Код_книги", Model.Код)
+                @Html.TextArea("Содержание", null, rows: 5, columns: 40, htmlAttributes: null)
+             <br />
+             if (ViewBag.ReviewWritten == 0)
+             {
+             <input type="submit" name="btnAction" value="Добавить отзыв" />
+            }
+            else
+            {
+                <div class="btn-group-vertical">
+                    <input type="submit" name="btnAction" value="Изменить" />
+                    <input type="submit" name="btnAction" value="Удалить" />
+                </div>
+            }
+        }
+
+    }
+    <hr />
+    <h4>Отзывы</h4>
+    <table class="table-striped table-bordered">
+        @if (Model.Отзывы.Count() == 0)
+        {
+            <tr><td class="text-danger">Отзывов нету</td></tr>
+        }
+        else
+        {
+               foreach (var i in Model.Отзывы)
+            {
+            <tr class="text-info"><td>@i.Создатель </td><td>@i.Дата_создания</td></tr>
+            <tr>
+                <td colspan="10">@i.Содержание</td>
+                @if (User.Identity.IsAuthenticated && Roles.IsUserInRole("Сотрудник"))
+                {
+                <td>@Html.ActionLink("Удалить отзыв", "DeleteReview", new { code = i.Код_книги, creator = i.Создатель })</td>
+                }
+            </tr>
+            }
+        }
+    </table>
+</body>
+</html>

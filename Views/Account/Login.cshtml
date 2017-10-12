@@ -1,0 +1,34 @@
+﻿@model WebApplication1.Models.LoginViewModel
+@{
+    ViewBag.Title = "Вход";
+    Layout = null;
+    
+}
+<head>
+    <link href=@Url.Content("~/Content/Site.css") rel="stylesheet" type="text/css" />
+    <link href=@Url.Content("~/Content/bootstrap.css") rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="col-md-10">
+        <h2>Вход</h2>
+        <br /> <div class="text-danger">@ViewBag.Error</div> <br />
+        <div class="form-horizontal">
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                <table>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.Имя)</td>    
+                        <td> @Html.EditorFor(model => model.Имя)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.Пароль)</td>
+                        <td>@Html.EditorFor(model => model.Пароль)</td>
+                    </tr>
+                </table>
+                
+                <input type="submit" value="Войти" />
+            }
+        </div>
+        @Html.ActionLink("Вернуться на главную", controllerName: "Home", actionName: "Index")
+    </div>
+</body>
